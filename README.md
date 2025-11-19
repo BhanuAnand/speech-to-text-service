@@ -6,6 +6,23 @@ A speech-to-text service using FastAPI and OpenAI Whisper.
 
 This service provides a REST API for transcribing audio files using OpenAI's Whisper model. FastAPI handles HTTP requests, Whisper processes the audio with configurable model sizes (tiny to large), and the service returns structured JSON with transcripts and metadata (language, duration, segments). Docker provides containerization, pytest handles testing, and GitHub Actions manages CI/CD.
 
+## Prerequisites
+
+- Python 3.11+
+- ffmpeg (required by Whisper for audio processing)
+
+Install ffmpeg:
+```bash
+# macOS
+brew install ffmpeg
+
+# Ubuntu/Debian
+sudo apt-get install ffmpeg
+
+# Windows
+# Download from https://ffmpeg.org/download.html
+```
+
 ## How to Run Locally
 
 ```bash
@@ -63,6 +80,8 @@ curl -X POST http://localhost:8000/transcribe -F "file=@audio.wav"
 **Note:** Use `harvard.wav` for real speech transcription. The `sample.wav` is just a test tone.
 
 ## Testing
+
+**Note:** Tests require ffmpeg to be installed (see Prerequisites section above).
 
 ```bash
 # Activate venv if not already activated
