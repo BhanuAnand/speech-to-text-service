@@ -75,81 +75,11 @@ pip install -r requirements-dev.txt
 python -m pytest --cov=app
 ```
 
-## Deployment
+## Try It Live
 
-### Local Deployment with Public Access (ngrok)
+The service is publicly accessible at: **`https://lissom-supersensitive-darien.ngrok-free.dev`**
 
-#### Initial Setup
-
-1. **Install ngrok:**
-   ```bash
-   brew install ngrok  # macOS
-   # Or download from https://ngrok.com/download
-   ```
-
-2. **Sign up and authenticate:**
-   - Create a free account at https://ngrok.com/
-   - Get your authtoken from https://dashboard.ngrok.com/get-started/your-authtoken
-   - Configure ngrok:
-     ```bash
-     ngrok config add-authtoken YOUR_AUTH_TOKEN
-     ```
-
-#### Running with ngrok
-
-1. **Start the service locally:**
-   ```bash
-   source venv/bin/activate
-   python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
-   ```
-
-2. **In another terminal, start ngrok:**
-   ```bash
-   ngrok http 8000
-   ```
-
-3. **Copy the forwarding URL** from the ngrok output:
-   ```
-   Forwarding  https://abc123.ngrok-free.app -> http://localhost:8000
-   ```
-
-4. **Test your public endpoint:**
-   ```bash
-   # Health check
-   curl https://YOUR-NGROK-URL.ngrok-free.app/health
-   
-   # Transcribe audio
-   curl -X POST https://YOUR-NGROK-URL.ngrok-free.app/transcribe \
-     -F "file=@examples/harvard.wav;type=audio/wav"
-   ```
-
-#### Tips & Best Practices
-
-- **Free tier limitations:** URL changes each restart, 40 requests/minute limit
-- **Persistent domains:** Upgrade to ngrok paid plan for static URLs
-- **Custom domains:** Configure in ngrok dashboard and use `ngrok http --domain=your-domain.ngrok.app 8000`
-- **Keep alive:** Both the service and ngrok must stay running for public access
-- **Monitor requests:** View traffic at http://localhost:4040 (ngrok web interface)
-
-#### Security Considerations
-
-⚠️ **Warning:** Your service will be publicly accessible. Consider adding:
-- API key authentication
-- Rate limiting
-- Request size validation (already configured: 100MB limit)
-- IP allowlisting if needed
-
-### Docker Deployment (Alternative)
-
-```bash
-docker-compose up -d
-```
-
-### Current Public Service URL
-
-**Service is live at:** `https://lissom-supersensitive-darien.ngrok-free.dev`
-
-Test the live service:
+Test the live demo:
 ```bash
 # Health check
 curl https://lissom-supersensitive-darien.ngrok-free.dev/health
@@ -158,11 +88,17 @@ curl https://lissom-supersensitive-darien.ngrok-free.dev/health
 curl -X POST https://lissom-supersensitive-darien.ngrok-free.dev/transcribe \
   -F "file=@examples/harvard.wav;type=audio/wav"
 
-# Using the test script
+# Or use the test script
 ./test-public-service.sh
 ```
 
-**Note:** This URL is active only while the local service and ngrok tunnel are running. The URL may change if the tunnel is restarted.
+## Deployment
+
+### Docker
+
+```bash
+docker-compose up -d
+```
 
 ### CI/CD
 
