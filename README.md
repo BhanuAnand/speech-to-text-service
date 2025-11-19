@@ -92,15 +92,7 @@ curl -X POST https://lissom-supersensitive-darien.ngrok-free.dev/transcribe \
 ./test-public-service.sh
 ```
 
-## Deployment
-
-### Docker
-
-```bash
-docker-compose up -d
-```
-
-### CI/CD
+## CI/CD
 
 GitHub Actions runs tests and builds Docker image on push. See `.github/workflows/ci.yml`.
 
