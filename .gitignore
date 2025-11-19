@@ -26,6 +26,7 @@ wheels/
 # Testing
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
 .tox/
 
@@ -35,6 +36,11 @@ htmlcov/
 *.swp
 *.swo
 *~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
 
 # Environment
 .env
